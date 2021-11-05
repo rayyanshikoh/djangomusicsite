@@ -1,0 +1,58 @@
+{% extends "music/header.html" %}
+
+{% block content %}
+<!-- <h1>Register</h1>
+<form method = 'POST' action="">
+    {% csrf_token %}
+    {{ form.username.label }}
+    {{ form.username }}
+
+    {{ form.email.label }}
+    {{ form.email }}
+
+    {{ form.password1.label }}
+    {{ form.password1 }}
+
+    {{ form.password2.label }}
+    {{ form.password2 }}
+    <input type="submit" name="Create User">
+
+
+</form> -->
+<div class="container">
+    <div style="margin: auto; width: 60%;">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <fieldset>
+            <legend>User Registration</legend>
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label mt-4">Username:</label>
+                {{form.username}}
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label mt-4">Email address:</label>
+                {{form.email}}
+                <br>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="form-label mt-4">Password:</label>
+                {{ form.password1 }}
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="form-label mt-4">Re-enter Password:</label>
+                {{ form.password2 }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="{% url 'music:login' %}" style="margin-left: 10px;">Sign in</a>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{% endblock %} 

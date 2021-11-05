@@ -1,0 +1,27 @@
+{% extends "music/header.html" %}
+{% block content %}
+<div class="container">
+    <br>
+    <div style="margin: auto; width: 60%;">
+        <form method = 'POST' action="">
+            <fieldset>
+                <legend>Login</legend>
+                <div class="form-group">
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                      <label for="floatingInput">Email address</label>
+                    </div>
+                    <div class="form-floating">
+                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                      <label for="floatingPassword">Password</label>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{% url 'music:register' %}" style="margin-left: 10px;">Register</a>
+            </fieldset>
+        </form>
+        <br>
+    </div>
+</div>
+{% endblock %} 
