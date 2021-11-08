@@ -50,6 +50,7 @@
                 {{ form.password2 }}
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
+            {{form.errors}}
             <a href="{% url 'music:login' %}" style="margin-left: 10px;">Sign in</a>
             </fieldset>
         </form>
