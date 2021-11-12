@@ -1,0 +1,15 @@
+<p>Song List for Album: {{ album }}</p>
+{% load static %}
+{% get_media_prefix %}
+
+{% if context %}
+    {% for song in context %}
+        <p>{{ song.title }}</p>
+        <audio controls>
+            <source src='.media/music/{{ song.location }}' type="audio/mpeg">
+            <p>{{ MEDIA_URL }}</p>
+            <!-- <source src="media/{{ song.location }}" type="audio/mpeg"> -->
+          Your browser does not support the audio element.
+        </audio>
+    {% endfor %}
+{% endif %}

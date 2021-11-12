@@ -1,0 +1,7 @@
+<p>Album List for Artist: {{ artist }}</p>
+
+<ul>
+{% for album in artist.album_set.all %}
+    <li>{{ album.album_name }}</li>
+{% endfor %}
+</ul>
