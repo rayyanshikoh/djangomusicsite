@@ -1,9 +1,25 @@
-{% if artists_list %}
-    <ul>
-    {% for artist in artists_list %}
-        <li><a href="{% url 'music:albums' artist.id %}">{{ artist.artist_name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>None found</p>
-{% endif %}
+{% extends "music/header.html" %}
+{% block content %}
+{% load static %}
+<br>
+<br>
+    <div class="container">
+        <h1>Artists</h1>
+        {% if artists_list %}
+            {% for artist in artists_list %}
+                <div class="row" style="border: 1px; border-color: 32fbe2; border-style: dotted; border-radius: 3px;">
+                    <div class="col">
+                        <!-- <div style="max-width: 100px; max-height: 100px; overflow: hidden;"><img src="{% static artist.artist_picture_name %}.jpg" alt="not found" style="margin: 10px; border-radius: 5px;"></div> -->
+                        <img src="{% static artist.artist_picture_name %}.jpg" alt="not found" style="max-width: 100px; max-height: 100px; width: auto; height: auto; margin: 10px; border-radius: 5px;">
+                    </div>
+                    <div class="col-8">
+                        <h4 style="margin: 35px;"><a href="{% url 'music:albums' artist.id %}" style="vertical-align: bottom;">{{ artist.artist_name }}</a></h4>
+                    </div>
+                    <div class="col">
+                        <p>insert description</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

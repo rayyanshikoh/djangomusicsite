@@ -1,4 +1,14 @@
 {% extends "music/header.html" %}
 {% block content %}
-<p>lol</p>
+<br>
+<div class="container">
+    <div class="row">
+        <h1>Hey there {{user}}! </h1>
+    </div>
+    <br>
+    <div class="row">
+        <h2>Check out some delicious <a href="{% url 'music:artists' %}">music!</a></h2>
+    </div>
+</div>
+
 {% endblock %} 

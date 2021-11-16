@@ -1,15 +1,31 @@
-<p>Song List for Album: {{ album }}</p>
-{% load static %}
-{% get_media_prefix %}
-
-{% if context %}
-    {% for song in context %}
-        <p>{{ song.title }}</p>
-        <audio controls>
-            <source src='.media/music/{{ song.location }}' type="audio/mpeg">
-            <p>{{ MEDIA_URL }}</p>
-            <!-- <source src="media/{{ song.location }}" type="audio/mpeg"> -->
-          Your browser does not support the audio element.
-        </audio>
-    {% endfor %}
-{% endif %}
+{% extends "music/header.html" %}
+{% block content %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-9" style="text-align: center;">
+            <h1>{{ album }}</h1>
+            <title>{{ album }} - Rayyanify</title>
+            <img src="{{cover}}/cover.jpg" alt="Album Art" style="width: 300px; height: 300px; border-radius: 5px;">
+            {% if context %}
+                {% for song in context %}
+                    <br>
+                    <br>
+                    <p>{{ song.title }}</p>
+                    <audio controls>
+                        <source src="{{ MEDIA_URL }}{{song.location}}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                    </audio>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

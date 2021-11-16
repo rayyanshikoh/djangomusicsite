@@ -1,7 +1,16 @@
-<p>Album List for Artist: {{ artist }}</p>
-
-<ul>
-{% for album in artist.album_set.all %}
-    <li>{{ album.album_name }}</li>
-{% endfor %}
-</ul>
+{% extends "music/header.html" %}
+{% block content %}
+{% load static %}
+<br>
+    <div class="container">
+        <h2>{{ artist }}</h2>
+        <br>
+        {% for album in artist.album_set.all %}
+        <div class="row">
+            <div class="col">
+                <a href="{% url 'music:songs' artist.id album.id %}"> {{ album.album_name }} </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %} 

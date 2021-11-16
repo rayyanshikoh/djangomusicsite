@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,18 +7,20 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
     <script src="{% static 'bootstrap.min.js' %}"></script>
-    <title>Page</title>
     <style>
       body {
           background-image: url("{% static 'background.jpg' %}");
+          height: 100%;
           background-repeat: no-repeat;
+          background-position: center;
+          background-size: cover;
       }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Rayyanify</a>
+          <a class="navbar-brand" href="{% url 'music:homepage' %}">Rayyanify</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -34,23 +36,23 @@
                 <a class="nav-link" href="{% url 'music:pricing' %}">Prices</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <a class="nav-link" href="{% url 'music:artists' %}">Artists</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Featured Playlists</a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Nothing here yet! Be sure to keep checking this place</a>
+                  <!-- <a class="dropdown-item" href="#">Another action</a>
                   <a class="dropdown-item" href="#">Something else here</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
+                  <a class="dropdown-item" href="#">Separated link</a> -->
                 </div>
               </li>
             </ul>
+            <span class="text-primary">Hello, {{request.user}}</span>
+            <span><a  class="text-primary" href="{% url 'music:logout'%}">Logout</a></span>
           </div>
         </div>
-        <span class="text-primary">Hello, {{request.user}}</span>
-        <span><a  class="text-primary" href="{% url 'music:logout'%}">Logout</a></span>
       </nav>
     {% block content %}
 

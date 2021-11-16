@@ -13,7 +13,9 @@ from os import path
 import zipfile
 
 from tinytag import TinyTag
-from .models import Album, Artist, Song
+from .models import Album, Artist
+
+# Additional functions and objects to assist views
 
 class Music:
     def __init__(self, album, albumartist, year, genre, title, artist):
@@ -34,14 +36,27 @@ class Music1:
         self.artist = artist
         self.location = location
 
+
+def deleter(url):
+    source_path = str(url)
+    if os.path.exists(source_path):
+        os.remove(source_path)
+    else:
+        print("The file does not exist")
+
+
 def extractor(filename, url):
     source_path = url
-    with zipfile.ZipFile(source_path, 'r') as zip_ref:
-        zip_ref.extractall(f"./media/music/{filename}")
     filename1 = filename.split('.zip')
     filename1 = str(filename1[0])
-    new_url1 = f"{filename}/{filename1}"
+    filename_webfile = str(source_path).replace('%20', ' ')
+    print(filename_webfile)
+    with zipfile.ZipFile(filename_webfile, 'r') as zip_ref:
+        zip_ref.extractall(f"./media/music/{filename1}")
+    deleter(filename_webfile)
+    new_url1 = f"{filename1}/{filename1}"
     music_adder(f"./media/music/{new_url1}")
+
 
 def music_adder(url):
     list = []
@@ -61,8 +76,8 @@ def music_adder(url):
     q = Artist(artist_name = str(albumartist), artist_picture_name = "N/a", artist_description = "N/a")
     q.save()
     q.album_set.create(album_name = album, album_filename_url = f"{url}/{filename}", release_date = year, album_art = "N/A")
-            # print('This track is by %s.' % tag.artist)
-            # print('It is %f seconds long.' % tag.duration)
+
+# Define your views here
 
 
 def register_page(request):
@@ -126,9 +141,6 @@ def simple_upload(request):
         print(uploaded_file_url)
         new_url = f".{str(uploaded_file_url)}"
         extractor(filename=myfile.name, url=new_url)
-        # return render(request, 'music/upload.html', {
-        #     'uploaded_file_url': uploaded_file_url
-        # })
         return redirect('music:homepage')
     return render(request, 'music/upload.html')
 
@@ -140,6 +152,8 @@ def artists(request):
     }
     return render(request, 'music/artists.html', context)
 
+
+@login_required(login_url='music:login')
 def albums(request, artist_id):
     try:
         artist = Artist.objects.get(pk=artist_id)
@@ -148,24 +162,26 @@ def albums(request, artist_id):
         raise Http404("Question does not exist")
     return render(request, 'music/album.html', {'artist': artist})
 
+
+@login_required(login_url='music:login')
 def songs(request, album_id, artist_id):
-    try:
-        album = Album.objects.get(pk=album_id)
-        url = album.album_filename_url
-        context = []
-        for filename in os.listdir(url):
-            if filename.endswith(".mp3") or filename.endswith(".py"): 
-                tag = TinyTag.get(f"{url}{filename}")
-                location = (f"{url}{filename}")
-                location = location[14:]
-                print(str(location))
-                album = tag.album
-                title = tag.title
-                albumartist = tag.albumartist
-                artist = tag.artist
-                genre = tag.genre
-                year = tag.year
-                context.append(Music1(album, albumartist, year, genre, title, artist, location))   
-    except:
-        raise Http404("Album Does not exist")
-    return render(request, 'music/songs.html', {'context':context, 'album':album})
+    print(album_id)
+    album = Album.objects.get(pk=album_id)
+    album1 = album
+    url = album.album_filename_url
+    print(url)
+    context = []
+    cover = str(url)[1:]
+    for filename in os.listdir(url):
+        if filename.endswith(".mp3") or filename.endswith(".py"): 
+            tag = TinyTag.get(f"{url}{filename}")
+            location = (f"{url}{filename}")
+            location = location[14:]
+            album = tag.album
+            title = tag.title
+            albumartist = tag.albumartist
+            artist = tag.artist
+            genre = tag.genre
+            year = tag.year
+            context.append(Music1(album, albumartist, year, genre, title, artist, location))   
+    return render(request, 'music/songs.html', {'context':context, 'album':album, 'album1':album1, 'cover':cover})

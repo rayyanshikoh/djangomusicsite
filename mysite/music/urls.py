@@ -1,10 +1,12 @@
-from django.urls import path
+from os import name
+from django.urls import path, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
 app_name = "music"   
 urlpatterns = [
+    path("", views.homepage, name="homepage"),
     path("home/", views.homepage, name="homepage"),
     path("register/", views.register_page, name="register"),
     path("login/", views.login_page, name="login"),
@@ -13,5 +15,8 @@ urlpatterns = [
     path("upload/", views.simple_upload, name="upload"),
     path("artist/", views.artists, name="artists"),
     path('<int:artist_id>/', views.albums, name='albums'),
-    path('<int:artist_id>/<int:album_id>', views.songs, name='songs')
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('<int:artist_id>/<int:album_id>/', views.songs, name='songs')
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
