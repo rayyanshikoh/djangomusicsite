@@ -19,9 +19,12 @@ from django.views.static import serve
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.staticfiles.urls import static
+import music
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('music/', include('music.urls')),
+    path('', music.views.homepage)
     # re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
 #     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]
