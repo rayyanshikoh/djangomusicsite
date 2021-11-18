@@ -173,10 +173,12 @@ def songs(request, album_id, artist_id):
     context = []
     cover = str(url)[1:]
     for filename in os.listdir(url):
-        if filename.endswith(".mp3") or filename.endswith(".py"): 
+        if filename.endswith(".mp3") or filename.endswith(".py"):
             tag = TinyTag.get(f"{url}{filename}")
             location = (f"{url}{filename}")
+            print(location)
             location = location[14:]
+            location = location.replace("%20", ' ')
             album = tag.album
             title = tag.title
             albumartist = tag.albumartist
