@@ -13,7 +13,7 @@
                     <br>
                     <br>
                     <p>{{ song.title }}</p>
-                    <audio controls>
+                    <audio controls preload="metadata">
                         <source src="{{ MEDIA_URL }}{{song.location}}" type="audio/mpeg">
                     Your browser does not support the audio element.
                     </audio>
