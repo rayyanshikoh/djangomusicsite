@@ -121,17 +121,17 @@ def logoutuser(request):
     logout(request)
     return redirect('music:login')
 
-@login_required(login_url='music:login')
+# @login_required(login_url='music:login')
 def homepage(request):
     context = {}
     return render(request, 'music/home.html', context)
 
-@login_required(login_url='music:login')
+# @login_required(login_url='music:login')
 def pricing(request):
     context = {}
     return render(request, 'music/pricing.html', context)
 
-@login_required(login_url='music:login')
+# @login_required(login_url='music:login')
 def simple_upload(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
@@ -144,7 +144,7 @@ def simple_upload(request):
         return redirect('music:homepage')
     return render(request, 'music/upload.html')
 
-@login_required(login_url='music:login')
+# @login_required(login_url='music:login')
 def artists(request):
     artists_list = Artist.objects.all()
     context = {
@@ -153,7 +153,7 @@ def artists(request):
     return render(request, 'music/artists.html', context)
 
 
-@login_required(login_url='music:login')
+# @login_required(login_url='music:login')
 def albums(request, artist_id):
     try:
         artist = Artist.objects.get(pk=artist_id)
@@ -163,7 +163,7 @@ def albums(request, artist_id):
     return render(request, 'music/album.html', {'artist': artist})
 
 
-@login_required(login_url='music:login')
+# @login_required(login_url='music:login')
 def songs(request, album_id, artist_id):
     print(album_id)
     album = Album.objects.get(pk=album_id)
