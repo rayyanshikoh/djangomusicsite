@@ -7,21 +7,23 @@
         <div class="col-9" style="text-align: center;">
             <h1>{{ album }}</h1>
             <title>{{ album }} - Rayyanify</title>
-            <img src="{{cover}}/cover.jpg" alt="Album Art" style="width: 300px; height: 300px; border-radius: 5px;">
-            {% if context %}
-                {% for song in context %}
-                    <br>
-                    <br>
-                    <p>{{ song.title }}</p>
-                    <audio controls preload="metadata">
-                        <source src="{{ MEDIA_URL }}{{song.location}}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                    </audio>
-                {% endfor %}
-            {% endif %}
+            <img src="{{cover}}/cover.jpg" alt="Album Art" style="width: 100%; border-radius: 5px; max-width: 300px;">
         </div>
         <div class="col"></div>
     </div>
+    {% if context %}
+        {% for song in context %}
+            <div class="row">
+                <br>
+                <br>
+                <p style="margin-left: 10px;">{{ song.title }}</p>
+                <audio controls preload="metadata">
+                    <source src="{{ MEDIA_URL }}{{song.location}}" type="audio/mpeg">
+                Your browser does not support the audio element.
+                </audio>
+            </div>
+        {% endfor %}
+    {% endif %}
 </div>
 <br>
 <br>
