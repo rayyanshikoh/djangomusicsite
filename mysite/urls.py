@@ -24,9 +24,9 @@ import music
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('music/', include('music.urls')),
-    path('', music.views.homepage)
-    # re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
-#     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
+    path('', music.views.homepage),
+    re_path(r'^media/music/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    # re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
